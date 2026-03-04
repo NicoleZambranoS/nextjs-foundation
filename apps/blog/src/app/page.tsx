@@ -15,8 +15,7 @@ export default async function BlogHomePage() {
               <h2 className="font-semibold text-2xl">{post.title}</h2>
             </Link>
             <p className="text-sm text-gray-500">
-              {post.category} · {post.readingTime} min read ·{' '}
-              {post.publishedAt.toLocaleDateString()}
+              {post.category} · {post.readingTime} min read
             </p>
             <p className="text-gray-700">{post.excerpt}</p>
             <Link
