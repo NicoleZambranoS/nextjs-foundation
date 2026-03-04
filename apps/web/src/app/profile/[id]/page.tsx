@@ -94,15 +94,11 @@ function ActivitySkeleton() {
   )
 }
 
-export default async function ProfilePage({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
+async function ProfileContent({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
 
   return (
-    <main className="mx-auto max-w-2xl space-y-6 p-8">
+    <>
       {/* Each section streams independently as it resolves */}
       <Suspense fallback={<HeaderSkeleton />}>
         <ProfileHeader id={id} />
@@ -114,6 +110,20 @@ export default async function ProfilePage({
 
       <Suspense fallback={<ActivitySkeleton />}>
         <ProfileActivity id={id} />
+      </Suspense>
+    </>
+  )
+}
+
+export default function ProfilePage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  return (
+    <main className="mx-auto max-w-2xl space-y-6 p-8">
+      <Suspense fallback={<HeaderSkeleton />}>
+        <ProfileContent params={params} />
       </Suspense>
     </main>
   )

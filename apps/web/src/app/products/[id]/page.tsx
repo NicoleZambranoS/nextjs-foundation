@@ -1,13 +1,21 @@
 import { getProduct } from '@/lib/products'
 import { Suspense } from 'react'
 
-export default async function ProductPage({
+async function ProductContent({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params
+
+    return (
+        <Suspense fallback={<ProductSkeleton />}>
+            <ProductDetails id={id} />
+        </Suspense>
+    )
+}
+
+export default function ProductPage({
     params
 }: {
     params: Promise<{ id: string }>
 }) {
-    const { id } = await params
-
     return (
         <div>
             <header>
@@ -15,7 +23,7 @@ export default async function ProductPage({
             </header>
 
             <Suspense fallback={<ProductSkeleton />}>
-                <ProductDetails id={id} />
+                <ProductContent params={params} />
             </Suspense>
 
             <footer>© 2024 ACME Corp</footer>
